@@ -1,11 +1,16 @@
-<div align="center">
+# Universal Dragon Portfolio (Android)
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+This project has been rewritten from a static HTML/JS web portfolio into a native Android application using Kotlin and Jetpack Compose.
 
-  <h1>Built with AI Studio</h2>
+## Features
+- **Home Screen**: Showcases the Universal Dragon identity, architecture, and provides navigation.
+- **Projects**: A list of verified repositories and software research links.
+- **EVE Chat**: A local fallback AI assistant interface based on EVE System.
+- **NOVA Chat**: A local fallback AI assistant interface based on NOVA Core.
+- **Askutty Work Assistant**: An input form for logging work tasks and data natively on device.
 
-  <p>The fastest path from prompt to production with Gemini.</p>
-
-  <a href="https://aistudio.google.com/apps">Start building</a>
-
-</div>
+## Technology Stack
+- **Language**: Kotlin 2.1.0
+- **UI Framework**: Jetpack Compose (Material 3)
+- **Navigation**: Jetpack Navigation Compose
+- **Build System**: Gradle (Kotlin DSL) with AGP 9.1.1
