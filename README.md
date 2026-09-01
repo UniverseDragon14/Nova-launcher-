@@ -1,16 +1,41 @@
-# Universal Dragon Portfolio (Android)
+# Universal Dragon Launcher for Android
 
-This project has been rewritten from a static HTML/JS web portfolio into a native Android application using Kotlin and Jetpack Compose.
+Native Android portfolio/launcher prototype built with Kotlin, Jetpack Compose, Material 3, and Navigation Compose.
 
-## Features
-- **Home Screen**: Showcases the Universal Dragon identity, architecture, and provides navigation.
-- **Projects**: A list of verified repositories and software research links.
-- **EVE Chat**: A local fallback AI assistant interface based on EVE System.
-- **NOVA Chat**: A local fallback AI assistant interface based on NOVA Core.
-- **Askutty Work Assistant**: An input form for logging work tasks and data natively on device.
+## Current screens
 
-## Technology Stack
-- **Language**: Kotlin 2.1.0
-- **UI Framework**: Jetpack Compose (Material 3)
-- **Navigation**: Jetpack Navigation Compose
-- **Build System**: Gradle (Kotlin DSL) with AGP 9.1.1
+- Home control-room style dashboard
+- Projects
+- EVE chat mockup
+- NOVA chat mockup
+- Askutty approval/status mockup
+
+Navigation is implemented locally in MainActivity. The UI uses bundled image assets and Compose components.
+
+## Current boundary
+
+The current default branch does not implement:
+
+- a network AI backend
+- persistent chat or project storage
+- speech recognition or text-to-speech
+- camera, GPIO, robot, or Raspberry Pi control
+- physical quantum-computer access
+- production authentication
+
+EVE/NOVA replies and status cards are local demonstration content. Labels such as “listening” or system status are UI presentation, not live microphone/device evidence.
+
+## Build
+
+Project configuration:
+
+- compile/target SDK 35
+- minimum SDK 26
+- Java 21
+- application module: app
+
+Open the repository in a compatible Android Studio version, sync Gradle, and run the app module. A Gradle wrapper is not currently committed, so command-line builds require a compatible local Gradle installation or adding the wrapper first.
+
+## Repository hygiene
+
+Generated .gradle cache/build artifacts should stay out of source control. Before a release, add tests, accessibility checks, network/security design, signed release configuration, privacy disclosures, and verified backend integration.
