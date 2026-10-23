@@ -42,6 +42,19 @@ private val DarkColorScheme = darkColorScheme(
     onSurface = TextLight
 )
 
+private val LightColorScheme = lightColorScheme(
+    primary = Fire,
+    secondary = Gold,
+    tertiary = Cyan,
+    background = Color(0xFFF9F9F9),
+    surface = Color(0xFFFFFFFF),
+    onPrimary = Color.White,
+    onSecondary = Color.Black,
+    onTertiary = Color.Black,
+    onBackground = Color(0xFF1A1A1A),
+    onSurface = Color(0xFF1A1A1A)
+)
+
 val AppTypography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -68,10 +81,10 @@ val AppTypography = Typography(
 
 @Composable
 fun UniversalDragonTheme(
-    darkTheme: Boolean = true, // Force dark theme to match original
+    darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colorScheme = DarkColorScheme
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
 
     val view = LocalView.current
     if (!view.isInEditMode) {

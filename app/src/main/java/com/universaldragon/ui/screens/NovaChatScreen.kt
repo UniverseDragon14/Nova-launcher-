@@ -6,21 +6,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.universaldragon.ui.theme.Cyan
 import com.universaldragon.ui.theme.Fire
 import com.universaldragon.ui.theme.Muted
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NovaChatScreen(onNavigateBack: () -> Unit) {
+fun NovaChatScreen() {
     var input by remember { mutableStateOf("") }
     var messages by remember { mutableStateOf(listOf(ChatMessage("NOVA online ✅ Ask about Universal Dragon, Aslam, NOVA Core, EVE, AI, robotics, Raspberry Pi, or developer architecture.", false))) }
 
@@ -34,87 +30,72 @@ fun NovaChatScreen(onNavigateBack: () -> Unit) {
         return "NOVA safe reply: I can explain Universal Dragon, Aslam, NOVA Core, EVE, AI, robotics, Raspberry Pi, automation, and developer architecture."
     }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("NOVA AI Chat", color = Fire, fontWeight = FontWeight.Bold) },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = Fire)
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background)
-            )
-        }
-    ) { padding ->
-        Column(
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .padding(16.dp)
+                .weight(1f)
+                .background(Color.Black.copy(alpha = 0.3f), RoundedCornerShape(16.dp))
+                .border(1.dp, Fire.copy(alpha = 0.2f), RoundedCornerShape(16.dp))
+                .padding(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            LazyColumn(
-                modifier = Modifier
-                    .weight(1f)
-                    .background(Color.Black.copy(alpha = 0.3f), RoundedCornerShape(16.dp))
-                    .border(1.dp, Fire.copy(alpha = 0.2f), RoundedCornerShape(16.dp))
-                    .padding(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(messages) { msg ->
-                    val bgColor = if (msg.isUser) Fire.copy(alpha = 0.1f) else Cyan.copy(alpha = 0.07f)
-                    val borderColor = if (msg.isUser) Fire.copy(alpha = 0.22f) else Cyan.copy(alpha = 0.18f)
-                    
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 8.dp)
+            items(messages) { msg ->
+                val bgColor = if (msg.isUser) Fire.copy(alpha = 0.1f) else Cyan.copy(alpha = 0.07f)
+                val borderColor = if (msg.isUser) Fire.copy(alpha = 0.22f) else Cyan.copy(alpha = 0.18f)
+                
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp)
                     ) {
-                        Surface(
-                            shape = RoundedCornerShape(16.dp),
-                            color = bgColor,
-                            border = androidx.compose.foundation.BorderStroke(1.dp, borderColor),
-                            modifier = Modifier.padding(vertical = 4.dp)
-                        ) {
-                            Text(
-                                text = msg.text,
-                                color = if (msg.isUser) Color.White else Cyan.copy(alpha = 0.8f),
-                                modifier = Modifier.padding(12.dp)
-                            )
-                        }
+                    Surface(
+                        shape = RoundedCornerShape(16.dp),
+                        color = bgColor,
+                        border = androidx.compose.foundation.BorderStroke(1.dp, borderColor),
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    ) {
+                        Text(
+                            text = msg.text,
+                            color = if (msg.isUser) Color.White else Cyan.copy(alpha = 0.8f),
+                            modifier = Modifier.padding(12.dp)
+                        )
                     }
                 }
             }
+        }
 
-            Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedTextField(
-                    value = input,
-                    onValueChange = { input = it },
-                    modifier = Modifier.weight(1f),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Fire,
-                        unfocusedBorderColor = Fire.copy(alpha = 0.3f)
-                    ),
-                    placeholder = { Text("Ask NOVA something...", color = Muted) }
-                )
-                Button(
-                    onClick = {
-                        if (input.isNotBlank()) {
-                            val userMsg = input
-                            input = ""
-                            messages = messages + ChatMessage(userMsg, true)
-                            messages = messages + ChatMessage(getLocalReply(userMsg), false)
-                        }
-                    },
-                    modifier = Modifier.height(56.dp),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Fire.copy(alpha = 0.2f), contentColor = Fire)
-                ) {
-                    Text("Send")
-                }
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            OutlinedTextField(
+                value = input,
+                onValueChange = { input = it },
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(16.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = Fire,
+                    unfocusedBorderColor = Fire.copy(alpha = 0.3f)
+                ),
+                placeholder = { Text("Ask NOVA something...", color = Muted) }
+            )
+            Button(
+                onClick = {
+                    if (input.isNotBlank()) {
+                        val userMsg = input
+                        input = ""
+                        messages = messages + ChatMessage(userMsg, true)
+                        messages = messages + ChatMessage(getLocalReply(userMsg), false)
+                    }
+                },
+                modifier = Modifier.height(56.dp),
+                shape = RoundedCornerShape(16.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Fire.copy(alpha = 0.2f), contentColor = Fire)
+            ) {
+                Text("Send")
             }
         }
     }
